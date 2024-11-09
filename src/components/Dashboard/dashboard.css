@@ -22,4 +22,44 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 150%;
     line-height: 1.75;
+    flex-direction: column;
+}
+
+.menue l:hover{ 
+    background-color: red;
+    color: black;
+    cursor:pointer;
+}    
+
+
+.row{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile{
+    display:flex;
+    align-items: center;
+}
+.profile span{
+    font-weight: bold;
+    margin-right: 10px;
+}
+.avater{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: aqua;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.card{
+    background-color: aquamarine;
+    padding:20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0 green,0 blue, 0.1alpha);
 }
