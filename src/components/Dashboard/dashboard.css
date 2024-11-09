@@ -20,12 +20,13 @@
 }
 .menue{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 150%;
+    font-size: 250%;
+    font-weight: 200;
     line-height: 1.75;
     flex-direction: column;
 }
 
-.menue l:hover{ 
+.menue li:hover{ 
     background-color: red;
     color: black;
     cursor:pointer;
@@ -35,6 +36,7 @@
 .row{
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    
 }
 
 .profile{
