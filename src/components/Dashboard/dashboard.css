@@ -4,7 +4,16 @@
     box-sizing: border-box
 }
 .dash{ 
-    font-family: ;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    font-weight: bold;
+    font-size: 60px ;
+    text-decoration: solid;
+}
+.street{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    font-weight: bold;
+    font-size: 24px ;
+    text-decoration: solid underline;
 }
 .body-container{
     display:flex;
@@ -18,8 +27,9 @@
     
     background-color:rgb(73, 114, 162);
     color:#f4f4f4;
-    padding:20px;
-    border-radius: 8px;
+    padding:15px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 #body_left .menue{
@@ -33,11 +43,14 @@
 #body_left .menue li a{
     color:white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
 }
 
 #body_left .menue li a:hover{
-    text-decoration: underline;
+    color: rgb(133, 77, 77);
+    
 }
 
 .max-w-4xl {
@@ -83,9 +96,11 @@ header {
   }
   
   .card {
+    font-size: 25px;
     background-color: #e0e0e0;
     padding: 20px;
     border-radius: 50px;
+    height: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-weight: bold;
     color: #333;

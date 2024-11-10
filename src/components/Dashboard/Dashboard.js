@@ -9,14 +9,10 @@ function Dashboard() {
         <h1 className="dash">
           Your Dashboard
         </h1>
-        <div class="profile"><span>INITIALS</span><div class="avater"></div></div>
+        <div class="profile"><span>PROFILE</span><div class="avater"></div></div>
        
         </header>
         <div className="bg-white rounded-lg shadow-lg p-6" id="body_right" class="grid" >
-          <p className="text-gray-600">
-            Welcome to your StreetCompass dashboard! This is a placeholder page that will
-            be enhanced with features in future updates. tara
-          </p>
           <div class= "card"> This week</div>
           <div class= "card"> Upcoming events</div>
           <div class= "card"> Your followers</div>
@@ -27,7 +23,7 @@ function Dashboard() {
 
 
       <div id="body_left">
-        <h2> STREET CAMPUS</h2>
+        <h2 class='street'> STREET CAMPUS</h2>
         <ul class="menue">
           <li><a href="#" class="row"> Discover </a></li>
           <li><a href="#" class="row"> Calender </a></li>
@@ -38,6 +34,9 @@ function Dashboard() {
 
 
         </ul>
+      </div>
+      <div class="footer">
+        
       </div>
     </div>
   );
