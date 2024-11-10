@@ -29,7 +29,10 @@ function Dashboard() {
         <ul class="menue">
           <li><a href="Discovery" class="row"> Discover </a></li>
           <li><a href="#" class="row"> Calender </a></li>
-          <li><a href="PostCreator.js" class="row"> Create </a></li>
+          {/* <li><a href="PostCreator.js" class="row"> Create </a></li> */}
+          <Link to="/EventPage">
+            <button className="btn">Go to Profile</button>
+          </Link>
           <li><a href="#" class="row"> Find </a></li>
           <li><a href="#" class="row"> Chat </a></li>
 
@@ -38,9 +41,6 @@ function Dashboard() {
         </ul>
       </div>
     
-
-      
-
     </div>
   );
 }
