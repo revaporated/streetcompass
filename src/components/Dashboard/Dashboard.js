@@ -1,12 +1,12 @@
 import React from 'react';
-
+import './dashboard.css';
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-8" class="body-container" >
       <div className="max-w-4xl mx-auto">
         <header>
 
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+        <h1 className="dash">
           Your Dashboard
         </h1>
         <div class="profile"><span>INITIALS</span><div class="avater"></div></div>
@@ -15,7 +15,7 @@ function Dashboard() {
         <div className="bg-white rounded-lg shadow-lg p-6" id="body_right" class="grid" >
           <p className="text-gray-600">
             Welcome to your StreetCompass dashboard! This is a placeholder page that will
-            be enhanced with features in future updates. 
+            be enhanced with features in future updates. tara
           </p>
           <div class= "card"> This week</div>
           <div class= "card"> Upcoming events</div>
@@ -34,6 +34,9 @@ function Dashboard() {
           <li><a href="PostCreator.js" class="row"> Create </a></li>
           <li><a href="#" class="row"> Find </a></li>
           <li><a href="#" class="row"> Chat </a></li>
+
+
+
         </ul>
       </div>
     </div>
