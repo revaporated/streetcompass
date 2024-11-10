@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# StreetCompass (HackRPI Demo)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+StreetCompass is a web application that helps users discover and plan itineraries based on nearby points of interest. It uses Google Maps and Places API to find locations, and generates intelligent itineraries using AI that consider opening hours and travel time.
+
+## Features
+
+- Interactive map selection for location search
+- Customizable search radius (1 or 2 miles)
+- Displays detailed information about nearby places including:
+  - Business hours
+  - Ratings
+  - Types of establishments
+  - Contact information
+- Visual map display of all discovered locations
+- AI-powered itinerary generation based on:
+  - Opening hours
+  - Travel time
+  - User's time preferences
+  - Logical visit order
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/streetcompass.git
+cd streetcompass
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Install additional server dependencies:
+```bash
+npm install express cors concurrently
+```
+
+## Running the Application
+
+1. Start both the React app and proxy server:
+```bash
+npm run dev
+```
+
+This will:
+- Start the React development server at http://localhost:3000
+- Start the proxy server at http://localhost:3001
+
+## Using the Application
+
+1. Log in using Google authentication
+2. Click the "Test" button in the sidebar
+3. Select a location on the map and adjust the radius
+4. View the discovered places and their details
+5. Enter your time preferences
+6. Get an AI-generated itinerary based on your selections
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start`: Runs only the React frontend
+- `npm run server`: Runs only the proxy server
+- `npm run dev`: Runs both frontend and server concurrently
+- `npm test`: Runs the test suite
+- `npm run build`: Creates a production build
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- Google Maps API
+- Google Places API
+- Google OAuth
+- Anthropic Claude AI
+- Tailwind CSS
+- Express.js
+- Axios
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## License
 
-### `npm test`
+[Your chosen license]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Acknowledgments
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Eric Hunt,
+- Madison Fung,
+- Sam Hort,
+- Tara Najingo
