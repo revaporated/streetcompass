@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './dashboard.css';
+
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-8" class="body-container" >
@@ -9,7 +11,7 @@ function Dashboard() {
         <h1 className="dash">
           Your Dashboard
         </h1>
-        <div class="profile"><span>PROFILE</span><div class="avater"></div></div>
+        <div class="profile"><span><a href="profile.html" class="row">PROFILE</a></span><div class="avater"></div></div>
        
         </header>
         <div className="bg-white rounded-lg shadow-lg p-6" id="body_right" class="grid" >
@@ -23,9 +25,9 @@ function Dashboard() {
 
 
       <div id="body_left">
-        <h2 class='street'> STREET CAMPUS</h2>
+        <h2 class='street'> STREET COMPASS</h2>
         <ul class="menue">
-          <li><a href="#" class="row"> Discover </a></li>
+          <li><a href="Discovery" class="row"> Discover </a></li>
           <li><a href="#" class="row"> Calender </a></li>
           <li><a href="PostCreator.js" class="row"> Create </a></li>
           <li><a href="#" class="row"> Find </a></li>
@@ -35,9 +37,10 @@ function Dashboard() {
 
         </ul>
       </div>
-      <div class="footer">
-        
-      </div>
+    
+
+      
+
     </div>
   );
 }

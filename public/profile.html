@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Page</title>
+  <link  rel="stylesheet"href="style.css" type="text/css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Top navigation with only Dashboard button -->
+    <div class="top-nav">
+      <div class="dashboard-btn" id="dashboardBtn" ><a herf="Dashboard.js">Dashboard</a></div>
+    </div>
+
+    <div class="header">
+      <span>Profile</span>
+      <button class="follow-btn" id="followBtn">+ Follow</button>
+    </div>
+
+    <h2 class="event-name">Name of Event</h2>
+    <div class="event-poster">Poster</div>
+    <div class="description">Description of the event goes here.</div>
+
+    <div class="buttons">
+      <button id="rsvpBtn">RSVP</button>
+      <span class="attending" id="attendingCount">People Attending: 3</span>
+      <button class="community-btn" id="communityBtn">Join Community</button>
+    </div>
+  </div>
+
+  <script src="EventPage.js"></script>
+</body>
+</html>
