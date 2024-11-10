@@ -1,7 +1,11 @@
+// src/components/Dashboard/Dashboard.js
 import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import MapWithMarker from '../Map/MapWithMarker';
 import PlacesList from '../PlacesList/PlacesList';
+import ResultsMap from '../Map/ResultsMap';
+import TimePreferencesForm from '../TimePreferences/TimePreferencesForm';
+import { generateItinerary } from '../../utils/api';
 import { PLACE_TYPES } from '../../constants/placeTypes';
 
 function Dashboard() {
@@ -10,6 +14,10 @@ function Dashboard() {
   const [selectedRadius, setSelectedRadius] = useState(1000);
   const [places, setPlaces] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [timePreferences, setTimePreferences] = useState(null);
+  const [itinerary, setItinerary] = useState(null);
+  const [isGeneratingItinerary, setIsGeneratingItinerary] = useState(false);
 
   const handleTestClick = () => {
     setIsMapOpen(true);
@@ -17,39 +25,67 @@ function Dashboard() {
 
   const handleLocationSelect = async (location, radius) => {
     setIsLoading(true);
+    setError(null);
     setSelectedLocation(location);
     setSelectedRadius(radius);
     setIsMapOpen(false);
+    setTimePreferences(null);
+    setItinerary(null);
 
     try {
       const { Place, SearchNearbyRankPreference } = await window.google.maps.importLibrary("places");
       
       const center = new window.google.maps.LatLng(location.lat, location.lng);
       const request = {
-        fields: ["displayName", "formattedAddress", "location", "types"], // Changed primaryTypes to types
+        fields: [
+          "displayName",
+          "formattedAddress",
+          "location",
+          "types",
+          "internationalPhoneNumber",
+          "rating",
+          "userRatingCount",
+          "priceLevel",
+          "businessStatus",
+          "primaryType",
+          "regularOpeningHours"
+        ],
         locationRestriction: {
           center: center,
           radius: radius,
         },
         includedPrimaryTypes: PLACE_TYPES,
         maxResultCount: 20,
-        rankPreference: SearchNearbyRankPreference.DISTANCE,
+        rankPreference: SearchNearbyRankPreference.POPULARITY,
         language: "en-US",
         region: "us",
       };
 
       const { places: searchResults } = await Place.searchNearby(request);
       
-      // Transform the results to include primaryTypes from types
+      // Transform the results to include all metadata
       const transformedResults = searchResults.map(place => ({
-        ...place,
-        primaryTypes: place.types || []
+        id: place.id,
+        displayName: place.displayName?.text || place.displayName,
+        formattedAddress: place.formattedAddress,
+        location: {
+          lat: typeof place.location.lat === 'function' ? place.location.lat() : parseFloat(place.location.lat),
+          lng: typeof place.location.lng === 'function' ? place.location.lng() : parseFloat(place.location.lng)
+        },
+        primaryTypes: place.types || [],
+        phoneNumber: place.internationalPhoneNumber,
+        rating: place.rating,
+        userRatingCount: place.userRatingCount,
+        priceLevel: place.priceLevel,
+        businessStatus: place.businessStatus,
+        primaryType: place.primaryType,
+        openingHours: place.regularOpeningHours?.weekdayDescriptions || null
       }));
 
       setPlaces(transformedResults);
     } catch (error) {
       console.error("Error searching nearby places:", error);
-      // Optionally handle error state here
+      setError("Failed to fetch nearby places. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -57,6 +93,21 @@ function Dashboard() {
 
   const handleCloseMap = () => {
     setIsMapOpen(false);
+  };
+
+  const handleTimePreferencesSubmit = async (preferences) => {
+    setTimePreferences(preferences);
+    setIsGeneratingItinerary(true);
+    
+    try {
+      const generatedItinerary = await generateItinerary(places, preferences);
+      setItinerary(generatedItinerary);
+    } catch (error) {
+      console.error("Error generating itinerary:", error);
+      setError("Failed to generate itinerary. Please try again.");
+    } finally {
+      setIsGeneratingItinerary(false);
+    }
   };
 
   return (
@@ -86,8 +137,15 @@ function Dashboard() {
             </div>
           )}
 
-          {/* Places List or Loading State */}
-          {isLoading ? (
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+              <p className="text-red-600">{error}</p>
+            </div>
+          )}
+
+          {/* Loading State */}
+          {isLoading && (
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center justify-center space-x-2">
                 <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse"></div>
@@ -96,9 +154,66 @@ function Dashboard() {
               </div>
               <p className="text-center text-gray-600 mt-2">Loading places...</p>
             </div>
-          ) : places ? (
-            <PlacesList places={places} />
-          ) : (
+          )}
+
+          {/* Results */}
+          {!isLoading && places && (
+            <div className="space-y-4">
+              <ResultsMap 
+                places={places} 
+                centerLocation={selectedLocation}
+              />
+              {!timePreferences ? (
+                <TimePreferencesForm onSubmit={handleTimePreferencesSubmit} />
+              ) : (
+                <div className="bg-white rounded-lg shadow-lg p-6 mb-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800">Selected Time Preferences</h3>
+                    <button
+                      onClick={() => {
+                        setTimePreferences(null);
+                        setItinerary(null);
+                      }}
+                      className="text-sm text-blue-600 hover:text-blue-700"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <pre className="bg-gray-50 p-4 rounded-md overflow-x-auto text-sm">
+                    {JSON.stringify(timePreferences, null, 2)}
+                  </pre>
+                </div>
+              )}
+
+              {/* Itinerary Section */}
+              {timePreferences && (
+                <div className="bg-white rounded-lg shadow-lg p-6 mb-4">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    Generated Itinerary
+                  </h3>
+                  {isGeneratingItinerary ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse"></div>
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse delay-75"></div>
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse delay-150"></div>
+                      <p className="text-gray-600">Generating itinerary...</p>
+                    </div>
+                  ) : itinerary ? (
+                    <div className="prose max-w-none">
+                      <div className="whitespace-pre-wrap">{itinerary}</div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-600">Failed to generate itinerary. Please try again.</p>
+                  )}
+                </div>
+              )}
+
+              <PlacesList places={places} />
+            </div>
+          )}
+
+          {/* Initial State */}
+          {!isLoading && !places && !error && (
             <div className="bg-white rounded-lg shadow-lg p-6">
               <p className="text-gray-600">
                 Click the "Test" button in the sidebar to select a location and search for places.
